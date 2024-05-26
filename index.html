@@ -1,0 +1,26 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    $(document).ready(()=>{
+        const socket = io()
+
+        $("form").submit((e)=>{
+            e.preventDefault()
+            socket.emit("chat msg", $('#chatmsg').val())
+            $('#chatmsg').val('')
+            return false
+        })
+
+        socket.on("chat msg",(msg)=>{
+            $("ul").append($("<li>").text(msg))
+        })
+
+    })
+</script>
+<p>Hi</p>
+<ul id="listmsg"></ul>
+<form>
+    <input type="text" id="chatmsg">
+    <button>Submit</button>
+
+</form>
